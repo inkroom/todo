@@ -6,6 +6,7 @@
     <title>
         测试
     </title>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <style>
         html,body{
             height: 100%;
@@ -15,37 +16,78 @@
         *{
             margin: 0;padding: 0;
         }
-    ul li{
-        text-align: center;
+    .add,.item{
+        height: 40px;
+        line-height: 40px;
+        /* text-align: center; */
         list-style-type: none;
-        padding: 20px;
+        padding: 10px;
+        width: 90%;
+        margin: 10px auto;
+        border-radius: 5px;
     }
-    li>p{
+    .add>p{
         position: relative;
+        height: inherit;
     }
     .icon{
+        /* float: left; */
             position: absolute;
-            left: 9.5%;
+            left: 10px;
             top: 5%;
             font-size: 25px;
     }
-    li input{
-        padding-left: 40px;
+    .add input{
+        padding-left: 30px;
         height: 40px;
-        width: 80%;
-
+        width: 100%;
+        box-sizing: border-box;
+-webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+        /* padding-right: -30px; */
     }
+
+/* 内容 */
+.item {
+
+    height: 40px;
+    /* padding:10px; */
+    background-color: aqua;
+}
+.item span{
+float: left;
+}
+.item ul{
+    float: right;
+}
+.item li{
+    display: inline-block;
+}
     </style>
 </head>
 
 <body>
     <ul>
-        <li>
+        <li class="add">
             <p>
-                <span class="icon">+</span>
+                <span class="icon">
+                    <i class="fa fa-plus"></i>
+                </span>
                 <input type="text" placeholder="添加新的待办事项">
             </p>
-
+        </li>
+        <li class="item">
+            <div>
+                <span>内容</span>
+                <ul>
+                    <li>
+                        <i class="fa fa-close fa-2x"></i>
+                    </li>
+                    <li>
+                        <i class="fa fa-check fa-2x"></i>
+                    </li>
+                </ul>
+            </div>
         </li>
     </ul>
 
