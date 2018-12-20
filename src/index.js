@@ -3,7 +3,7 @@
 const { app, BrowserWindow } = require('electron');
 
 function createWindow() {
-    win = new BrowserWindow({ width: 800, height: 600 })
+    win = new BrowserWindow({ width: 800, height: 600 ,title:'待办事项',icon:'assets/icon/logo.png',darkTheme:true})
     win.loadFile('src/index.html');
     // win.webContents.openDevTools()
     win.on('closed', function() {

@@ -1,19 +1,22 @@
 {
-    "name": "todolist",
-    "version": "1.0.0",
-    "description": "待办事项",
-    "main": "src/index.js",
-    "scripts": {
-        "start": "electron .",
-        "pack-win": "electron-packager . todo --win --out ../out --arch=x64 --app-version=0.0.1",
-        "pack-linux": "electron-packager . todo --platform=linux --out ../out --arch=x64 --app-version=0.0.1 --prune=true --overwrite --icon=assets/icon/logo.svg --asar "
-    },
-    "keywords": [
-        "todo"
-    ],
-    "author": "inkbox",
-    "license": "MIT",
-    "devDependencies": {
-        "electron": "^3.0.13"
-    }
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "待办事项",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron .",
+"help":"electron-packager --help",
+
+    "pack-win": "electron-packager . todo --win --out ../out --arch=x64 --app-version=0.0.1",
+    "pack-linux": "electron-packager . todo --platform=linux --out ../out --arch=x64 --electron-version=3.0.13 --app-version=0.0.1 --prune=true --overwrite --icon=assets/icon/logo.png --asar "
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "inkbox",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.13",
+    "electron-packager": "^13.0.1"
+  }
 }
