@@ -1,9 +1,10 @@
 // const electron = require('electron');
 
 const { app, BrowserWindow } = require('electron');
-
+const path = require('path');
 function createWindow() {
-    win = new BrowserWindow({ width: 800, height: 600 ,title:'待办事项',icon:'assets/icon/logo.png',darkTheme:true})
+    win = new BrowserWindow({ width: 800, height: 600 ,title:'待办事项',
+        icon:path.join(__dirname, '../assets/icon/logo.png'),darkTheme:true})
     win.loadFile('src/index.html');
     // win.webContents.openDevTools()
     win.on('closed', function() {
