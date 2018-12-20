@@ -4,97 +4,316 @@
 <head>
     <meta charset="utf-8" />
     <title>
-        测试
+        待办事项
     </title>
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- <link rel="stylesheet" href="../assets/element/index.css"> -->
     <style>
-        html,body{
+        html,
+        body {
             height: 100%;
             width: 100%;
-         
         }
-        *{
-            margin: 0;padding: 0;
+        
+        * {
+            margin: 0;
+            padding: 0;
         }
-    .add,.item{
-        height: 40px;
-        line-height: 40px;
-        /* text-align: center; */
-        list-style-type: none;
-        padding: 10px;
-        width: 90%;
-        margin: 10px auto;
-        border-radius: 5px;
-    }
-    .add>p{
-        position: relative;
-        height: inherit;
-    }
-    .icon{
-        /* float: left; */
+        
+        input {
+            /* background-color: #2e2d33 !important; */
+        }
+        
+        .add,
+        .item {
+            height: 40px;
+            line-height: 40px;
+            /* text-align: center; */
+            list-style-type: none;
+            padding: 10px;
+            width: 90%;
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+        
+        .add {
+            position: relative;
+        }
+        
+        .add>span {
             position: absolute;
-            left: 10px;
-            top: 5%;
+            left: 20px;
+            top: 12px;
+            line-height: 40px;
+            vertical-align: middle;
+        }
+        
+        .icon {
+            /* float: left; */
+            position: absolute;
+            /* left: 10px; */
+            /* top: 5%; */
             font-size: 25px;
-    }
-    .add input{
-        padding-left: 30px;
-        height: 40px;
-        width: 100%;
-        box-sizing: border-box;
--webkit-box-sizing: border-box;
- -moz-box-sizing: border-box;
-        /* padding-right: -30px; */
-    }
-
-/* 内容 */
-.item {
-
-    height: 40px;
-    /* padding:10px; */
-    background-color: aqua;
-}
-.item span{
-float: left;
-}
-.item ul{
-    float: right;
-}
-.item li{
-    display: inline-block;
-}
+            margin-left: 5px;
+        }
+        
+        .add input {
+            padding-left: 30px;
+            height: 40px;
+            width: 100%;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            /* padding-right: -30px; */
+        }
+        /* 内容 */
+        
+        .detail {
+            height: 150px;
+            /* overflow: auto; */
+        }
+        
+        .detail textarea {
+            resize: none;
+            width: 50%;
+            height: inherit;
+            display: inline-block;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        
+        .detail>div {
+            vertical-align: top;
+            display: inline-block;
+            width: 48%;
+            height: inherit;
+        }
+        
+        .detail>div>p {
+            margin-top: 10px;
+        }
+        
+        .detail>div button {
+            width: 100%;
+        }
+        
+        .detail>div input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .el-collapse-item {
+            margin-top: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            /* border: 1px solid rgb(202, 147, 147); */
+            border-radius: 5px;
+            /* background-color: #4e4d5d; */
+        }
+        /* .el-collapse-item__header { */
+        /* background-color: #4e4d5d; */
+        /* } */
+        /* .el-collapse-item__content { */
+        /* background-color: #4e4d5d; */
+        /* } */
+        
+        [v-block] {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
-    <ul>
+    <div id="data">
+        <div class="add">
+            <input placeholder="添加新的待办事项" v-model="next" @keyup.enter="add" />
+            <span>
+                <i class="el-icon-plus"></i>
+            </span>
+        </div>
+        <div style="width:80%;margin: auto" v-block>
+            <el-collapse v-model="activeName" accordion>
+                <el-collapse-item :name="index" v-for="(item,index) in list">
+                    <template slot="title">
+                        <div style="width:50%;">{{item.content}}</div>
+                        <div style="width:48%;text-align: right">
+                                <i class="el-icon-close" style="font-size:25px" @click="remove(index)"></i>
+                                <i class="el-icon-check" style="font-size:25px" @click="ok(index)"></i>
+                        </div>
+                    </template>
+                    <div class="detail">
+                        <!-- <el-input type="textarea" placeholder="详情" v-model="item.detail">
+                        </el-input> -->
+                        <textarea placeholder="详情" v-model="item.detail" @keyup.enter="detail(index)"></textarea>
+                        <div>
+                            <p><button @click="today(index)" class="el-button el-button--default">今天</button></p>
+                            <p><button @click="tomorrow(index)" class="el-button el-button--default">明天</button></p>
+                            <p>
+                                <el-date-picker value-format="yyyy-MM-dd HH:mm" format="yyyy-MM-dd HH:mm" v-model="item.date" type="datetime" style="width:100%" placeholder="选择提醒时间" @change="timeChange">
+                                </el-date-picker>
+                            </p>
+                        </div>
+                    </div>
+                </el-collapse-item>
+            </el-collapse>
+        </div>
+    </div>
+
+
+    <!-- <ul id="data">
         <li class="add">
             <p>
                 <span class="icon">
                     <i class="fa fa-plus"></i>
                 </span>
-                <input type="text" placeholder="添加新的待办事项">
+                <input type="text" placeholder="添加新的待办事项" v-model="next" @keyup.enter="add">
             </p>
         </li>
-        <li class="item">
-            <div>
-                <span>内容</span>
+        <li class="item" v-for="(item,index) in list" v-block>
+            <div onclick="change(this)">
+                <span>
+                    <i class="fa fa-angle-up"></i>
+                    {{item.content}}
+                </span>
                 <ul>
-                    <li>
+                    <li @click="remove(index)">
                         <i class="fa fa-close fa-2x"></i>
                     </li>
-                    <li>
+                    <li @click="ok(index)">
                         <i class="fa fa-check fa-2x"></i>
                     </li>
                 </ul>
             </div>
+            <div class="detail">
+                <textarea placeholder="详情" v-model="item.detail"></textarea>
+                <div>
+                    <p><button @click="today(index)">今天</button></p>
+                    <p><button @click="tomorrow(index)">明天</button></p>
+                    <p><input type="text" placeholder="diy" v-model="item.date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})" /></p>
+                </div>
+            </div>
         </li>
-    </ul>
+    </ul> -->
 
-
-    <script src="https://cdn.bootcss.com/vue/2.5.21/vue.common.dev.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script>
+        // $(function() {
+
+        Date.prototype.format = function(fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份 
+                "d+": this.getDate(), //日 
+                "H+": this.getHours(), //小时 
+                "m+": this.getMinutes(), //分 
+                "s+": this.getSeconds(), //秒 
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                "S": this.getMilliseconds() //毫秒 
+            };
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+
+
+        function setData(data) {
+            if (data instanceof Array)
+                localStorage.setItem('list', JSON.stringify(data));
+            else {
+                console.log(JSON.stringify(data));
+                localStorage.setItem('list', (data));
+            }
+
+        }
+
+        function getData() {
+            var list = localStorage.getItem('list');
+            if (typeof(list) === undefined || list === '' || list === null) {
+                return [];
+            }
+            return JSON.parse(list);
+        }
+
+        var vue = new Vue({
+            el: '#data',
+            data: {
+                activeName: '1',
+                next: '',
+                list: getData()
+            },
+            mounted: function() {
+                this.$watch('list', function(nv, ov) {
+                    setData(nv);
+                })
+            },
+            created() {
+                setInterval(function() {
+                    var date = new Date().format('yyyy-MM-dd HH:mm');
+                    console.log(date)
+                    for (var i = 0; i < vue.list.length; i++) {
+                        if (vue.list[i].date === date) { //时间到了
+                            var _todo = vue.list[i];
+                            Notification.requestPermission(function(permission) {
+                                if (permission == "granted") {
+                                    var notification = new Notification("时间到了", {
+                                        dir: "auto",
+                                        lang: "zh-CN",
+                                        tag: "todo",
+                                        // icon: 'ant.png',
+                                        body: '该做' + _todo.content + "了"
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }, 60000);
+            },
+            methods: {
+                timeChange: function(data) {
+                    setData(this.list);
+                },
+                today: function(index) {
+                    this.list[index].date = new Date(new Date().getTime() + 3600 * 1000).format('yyyy-MM-dd HH:mm');
+                    setData(this.list);
+                },
+                tomorrow: function(index) {
+                    var tomorrow = new Date();
+
+                    tomorrow = new Date(tomorrow.getTime() + 3600 * 24 * 1000);
+
+                    this.list[index].date = (tomorrow.format('yyyy-MM-dd HH:mm'));
+                    setData(this.list);
+                },
+                detail: function(index) {
+                    setData(this.list);
+                },
+                add: function() {
+                    if (this.next !== '') {
+                        var item = {};
+                        item.content = this.next;
+
+
+
+                        item.date = new Date(new Date().getTime() + 3600 * 1000).format('yyyy-MM-dd HH:mm');
+                        item.detail = '';
+                        console.log(item);
+                        this.list.push(item);
+                    }
+                },
+                remove: function(index) {
+                    this.list.splice(index, 1);
+                },
+                ok: function(index) {
+                    this.list.splice(index, 1);
+                }
+            }
+        });
     </script>
 </body>
-
-</html>
