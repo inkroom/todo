@@ -1,22 +1,27 @@
 {
-  "name": "todo",
-  "version": "1.0.0",
-  "description": "待办事项",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "electron .",
-"help":"electron-packager --help",
-
-    "pack-win": "electron-packager . todo --win --out ../out --arch=x64 --app-version=0.0.1",
-    "pack-linux": "electron-packager . todo --platform=linux --out ../out --arch=x64 --electron-version=3.0.13 --app-version=0.0.1 --prune=true --overwrite --icon=assets/icon/logo.png --asar "
-  },
-  "keywords": [
-    "todo"
-  ],
-  "author": "inkbox",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^3.0.13",
-    "electron-packager": "^13.0.1"
-  }
+    "name": "todo",
+    "version": "1.0.0",
+    "description": "待办事项",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "electron .",
+        "help": "electron-packager --help",
+        "pack-win": "electron-packager . todo --win --out ../out --arch=x64 --app-version=0.0.1",
+        "pack-linux": "electron-packager . todo --platform=linux --out ../out --arch=x64  --app-version=0.0.1 --prune=true --overwrite --icon=assets/icon/logo.png --asar",
+        "install-deb": "electron-installer-debian --src ../out/todo-linux-x64 --arch amd64 --dest ../out --config deb.json"
+    },
+    "keywords": [
+        "todo"
+    ],
+    "author": "inkbox",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^3.0.13",
+        "electron-installer-debian": "^1.0.1",
+        "electron-packager": "^13.0.1"
+    },
+    "dependencies": {
+        "element-ui": "^2.4.11",
+        "vue": "^2.5.21"
+    }
 }
