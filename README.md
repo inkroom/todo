@@ -4,9 +4,10 @@
 
 
 ### 运行
-> npm run start
+> npm i  
+npm run start
 
 ### 打包
-> npm run pack-linux
-  npm run install-deb(仅打安装包需要)
+> npm run pack-linux  
+npm run install-deb(仅打安装包需要)
 
