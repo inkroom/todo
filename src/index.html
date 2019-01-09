@@ -6,23 +6,19 @@
     <title>
         待办事项
     </title>
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
     <!-- <link rel="stylesheet" href="../assets/element/index.css"> -->
+    <link rel="stylesheet" href="../assets/css/index.css" />
     <style>
         html,
         body {
-            height: 100%;
+            height: 98%;
             width: 100%;
         }
         
         * {
             margin: 0;
             padding: 0;
-        }
-        
-        input {
-            /* background-color: #2e2d33 !important; */
         }
         
         .add,
@@ -118,7 +114,7 @@
         /* background-color: #4e4d5d; */
         /* } */
         
-        [v-block] {
+        [v-cloak] {
             display: none;
         }
     </style>
@@ -132,14 +128,14 @@
                 <i class="el-icon-plus"></i>
             </span>
         </div>
-        <div style="width:80%;margin: auto" v-block>
+        <div style="width:80%;margin: auto" v-cloak>
             <el-collapse v-model="activeName" accordion>
-                <el-collapse-item :name="index" v-for="(item,index) in list">
+                <el-collapse-item :name="index" v-for="(item,index) in list" :key="index">
                     <template slot="title">
                         <div style="width:50%;">{{item.content}}</div>
                         <div style="width:48%;text-align: right">
-                                <i class="el-icon-close" style="font-size:25px" @click="remove(index)"></i>
-                                <i class="el-icon-check" style="font-size:25px" @click="ok(index)"></i>
+                            <i class="el-icon-close" style="font-size:25px" @click="remove(index)"></i>
+                            <i class="el-icon-check" style="font-size:25px" @click="ok(index)"></i>
                         </div>
                     </template>
                     <div class="detail">
@@ -160,46 +156,44 @@
         </div>
     </div>
 
+    <!-- <script src="../assets/js/test.js"></script> -->
+    <script src="../assets/js/vue.dev.min.js"></script>
 
-    <!-- <ul id="data">
-        <li class="add">
-            <p>
-                <span class="icon">
-                    <i class="fa fa-plus"></i>
-                </span>
-                <input type="text" placeholder="添加新的待办事项" v-model="next" @keyup.enter="add">
-            </p>
-        </li>
-        <li class="item" v-for="(item,index) in list" v-block>
-            <div onclick="change(this)">
-                <span>
-                    <i class="fa fa-angle-up"></i>
-                    {{item.content}}
-                </span>
-                <ul>
-                    <li @click="remove(index)">
-                        <i class="fa fa-close fa-2x"></i>
-                    </li>
-                    <li @click="ok(index)">
-                        <i class="fa fa-check fa-2x"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="detail">
-                <textarea placeholder="详情" v-model="item.detail"></textarea>
-                <div>
-                    <p><button @click="today(index)">今天</button></p>
-                    <p><button @click="tomorrow(index)">明天</button></p>
-                    <p><input type="text" placeholder="diy" v-model="item.date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})" /></p>
-                </div>
-            </div>
-        </li>
-    </ul> -->
 
-    <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- <script>
+        const
+            Vue = require('vue');
+        const
+            Element = require('element-ui');
+    </script> -->
+
+    <script src="../assets/js/element.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
     <script>
+        // import Vue from 'vue';
+        // import Element from 'element-ui';
+
+
+        // const Vue = require('vue')
+
+
+        // import ElementUI from 'element-ui'
+
+        // Vue.use(ElementUI);
+
+
+
+        // require('element-ui');
+        // import ElementUI from 'element-ui';
         // $(function() {
+        // const {
+        //     Vue,
+        //     vue
+        // } = require('../assets/js/vue.runtime.min.js');
+        // const {
+        //     el
+        // } = require('../assets/js/element.js');
 
         Date.prototype.format = function(fmt) {
             var o = {
@@ -216,7 +210,8 @@
             }
             for (var k in o) {
                 if (new RegExp("(" + k + ")").test(fmt)) {
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k])
+                        .length)));
                 }
             }
             return fmt;
@@ -280,7 +275,8 @@
                     setData(this.list);
                 },
                 today: function(index) {
-                    this.list[index].date = new Date(new Date().getTime() + 3600 * 1000).format('yyyy-MM-dd HH:mm');
+                    this.list[index].date = new Date(new Date().getTime() + 3600 * 1000).format(
+                        'yyyy-MM-dd HH:mm');
                     setData(this.list);
                 },
                 tomorrow: function(index) {
@@ -303,7 +299,6 @@
 
                         item.date = new Date(new Date().getTime() + 3600 * 1000).format('yyyy-MM-dd HH:mm');
                         item.detail = '';
-                        console.log(item);
                         this.list.push(item);
 
                         this.next = '';
@@ -319,3 +314,5 @@
         });
     </script>
 </body>
+
+</html>
