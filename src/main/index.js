@@ -1,6 +1,5 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 
-// import '../renderer/store'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -25,16 +24,27 @@ function createWindow() {
    * Initial window options
    */
 
+  //放在主界面的右边隐藏
+  let display = screen.getPrimaryDisplay();
+
+
+
+
+  let height = 400;//窗口高度
+
+
+
   //  new BrowserWindow({frame:false,transparent:true}).show()
   indexWindow = new BrowserWindow({
     fullscreen: false,
-    height: 860,
+    height: height,
     // useContentSize: true,
-    width: 1450,
-    x: 2053,
-    y: 215,
+    width: 800,
+    x: display.size.width - 100,
+    y: (display.size.height - height) / 2,
     frame: false,
     transparent: true,
+    alwaysOnTop:true,
     webPreferences: {
       nodeIntegration: true
     }
@@ -47,7 +57,7 @@ function createWindow() {
     indexWindow = null
   })
 
- 
+
 
   ipcMain.on('OPEN_MAIN_WINDOW', (event, args) => {
     mainWindow = new BrowserWindow({
@@ -62,9 +72,9 @@ function createWindow() {
       },
       show: true,
     })
-  
+
     mainWindow.loadURL(mainURL)
-  
+
     mainWindow.on('closed', () => {
       mainWindow = null
     })

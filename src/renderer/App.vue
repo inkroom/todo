@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  export default {
-    name: 'todolist'
-  }
+export default {
+  name: "todolist"
+};
 </script>
 
 <style lang="scss">
-@import '@/style/basic.scss'
+@import "@/style/basic.scss";
 </style>
