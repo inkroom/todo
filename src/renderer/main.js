@@ -14,6 +14,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 
 
+// import './store'
 
 /* eslint-disable no-new */
 new Vue({
