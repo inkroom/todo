@@ -50,21 +50,6 @@
       "icon": "build/icons"
     }
   },
-  "iohook": {
-    "targets": [
-      "node-59",
-      "electron-57"
-    ],
-    "platforms": [
-      "win32",
-      "darwin",
-      "linux"
-    ],
-    "arches": [
-      "x64",
-      "ia32"
-    ]
-  },
   "dependencies": {
     "dayjs": "^1.8.16",
     "element-ui": "^2.12.0",

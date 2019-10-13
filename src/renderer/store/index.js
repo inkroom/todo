@@ -6,7 +6,7 @@ import { createPersistedState, createSharedMutations } from 'vuex-electron'
 import createMutationsSharer,{LocalStorageStrategy} from "vuex-shared-mutations";
 
 // import VuexPersistence from 'vuex-persist'
-import createPersistedStateS from "vuex-persistedstate"
+// import createPersistedStateS from "vuex-persistedstate"
 
 
 import modules from './modules'
