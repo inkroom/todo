@@ -7,8 +7,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'landing-page',
-      component: ()=>import('@/components/LandingPage')
+      name: 'index',
+      component: ()=>import('@/views/display')
+    },
+    {
+
+      path:'/main',
+      name:'main',
+      component:()=> import('@/views/index')
     },
     {
       path: '*',

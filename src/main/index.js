@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron';
 
+// import '../renderer/store'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -8,28 +9,65 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let mainWindow
+let indexWindow;//trans window
+let mainWindow;//
+
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
+
+const mainURL = process.env.NODE_ENV === 'development'
+  ? `http://localhost:9080/#/main`
+  : `file://${__dirname}/index.html#/main`
 
 function createWindow() {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000,
+
+  //  new BrowserWindow({frame:false,transparent:true}).show()
+  indexWindow = new BrowserWindow({
+    fullscreen: false,
+    height: 860,
+    // useContentSize: true,
+    width: 1450,
+    x: 2053,
+    y: 215,
+    frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
-  mainWindow.loadURL(winURL)
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
+  indexWindow.loadURL(winURL)
+
+  indexWindow.on('closed', () => {
+    indexWindow = null
+  })
+
+ 
+
+  ipcMain.on('OPEN_MAIN_WINDOW', (event, args) => {
+    mainWindow = new BrowserWindow({
+      fullscreen: false,
+      height: 860,
+      // useContentSize: true,
+      width: 1450,
+      x: 2053,
+      y: 215,
+      webPreferences: {
+        nodeIntegration: true
+      },
+      show: true,
+    })
+  
+    mainWindow.loadURL(mainURL)
+  
+    mainWindow.on('closed', () => {
+      mainWindow = null
+    })
   })
 }
 
@@ -42,7 +80,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (indexWindow === null) {
     createWindow()
   }
 })

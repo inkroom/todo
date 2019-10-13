@@ -1,0 +1,42 @@
+.task {
+    margin: 20px;
+
+    border-bottom: 3px red solid;
+
+    > div:first-child {
+      font-size: 20px;
+      color: red;
+      margin-bottom: 8px;
+    }
+
+    > li {
+      padding: 15px;
+      font-size: 16px;
+
+      $border-style: 1px #ded4d4 solid;
+
+      border-top: $border-style;
+      border-bottom: $border-style;
+
+      .text {
+        display: inline-block;
+      }
+      .opertator {
+        float: right;
+        .time {
+          border-bottom: 1px red solid;
+        }
+      }
+    }
+  }
+  .add-task {
+      margin:15px;
+    > .content-input {
+      display: inline-block;
+      width: 70%;
+      
+    }
+    > .time-picker {
+      width: 28%;
+    }
+  }

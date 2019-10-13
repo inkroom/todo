@@ -1,0 +1,20 @@
+$basic-background-color:#1f1f1f;
+
+*{
+     padding: 0;
+    margin: 0;
+    }
+   
+li{
+    list-style: none;
+}
+i[class*=el-icon]{
+    cursor: pointer;
+    font-size: 20px;
+}
+
+html,body{
+    // height: 100%;
+    width: 100%;
+    // background-color: $basic-background-color;
+}
