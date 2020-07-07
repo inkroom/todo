@@ -16,7 +16,7 @@
     "author": "inkbox",
     "license": "MIT",
     "devDependencies": {
-        "electron": "^3.0.13",
+        "electron": "^9.1.0",
         "electron-installer-debian": "^1.0.1",
         "electron-packager": "^13.0.1"
     },
